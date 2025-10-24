@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPL Nepal</title>
+
+    <!-- favicon  -->
+    <link rel="icon" type="image/x-icon" href="" />
+
+    <!-- sanjaya css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/sanjaya007/sanjaya-css-library@4.0/dist/css/sanjaya.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- sanjaya alert  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/sanjaya007/sanjaya-alert-library@1.1/dist/css/alert.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- fontawesome, lineawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- custom css  -->
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <link rel="stylesheet" href="./assets/css/common.css" />
+    <link rel="stylesheet" href="./assets/css/home.css" />
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- nav  -->
+    <nav class="nav-wrapper gapX">
+      <div class="nav-container middle-content paddingX">
+        <div class="nav-box flex-css-row-sb fpy-20">
+          <a href="./index.html" class="logo-box flex-css-row-start">
+            <h1>FPL</h1>
+            <img
+              src="https://biohazard7.netlify.app/assets/images/flag.gif"
+              alt="flag"
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- filter  -->
+    <div class="filter-wrapper gapX">
+      <div class="filter-container middle-content paddingX">
+        <div class="filter-box flex-css-row-sb fpy-20">
+          <div class="left-box">
+            <input
+              type="text"
+              placeholder="Enter your league ID"
+              id="searchLeagueInput"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- table -->
+    <div class="table-wrapper gapX">
+      <div class="table-container middle-content paddingX">
+        <div class="table-box">
+          <div class="table-title fpb-20" id="tableTitle">
+            <h1 class="fmb-6">League</h1>
+            <p>Last Updated: <span></span></p>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Manager</th>
+                <th>GW</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+          </table>
+
+          <div class="flex-css fpy-30" id="noDataBox">
+            <h4>Loading...</h4>
+          </div>
+
+          <div class="flex-css fpy-30 fd-none" id="showMoreBox">
+            <a href="#" id="showMoreBtn">Show More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-wrapper gapX">
+      <div class="footer-container middle-content paddingX">
+        <div class="footer-box flex-css-row-sb fpy-30"></div>
+      </div>
+    </div>
+
+    <!-- sanjaya alert  -->
+    <script src="https://cdn.jsdelivr.net/gh/sanjaya007/sanjaya-alert-library@1.1/dist/jq/alert.min.js"></script>
+
+    <!-- custom js  -->
+    <script src="/assets/js/ajax.js"></script>
+    <script src="/assets/js/utils.js"></script>
+    <script src="/assets/js/common.js"></script>
+    <script src="/assets/js/home.js"></script>
+  </body>
+</html>

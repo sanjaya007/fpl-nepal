@@ -1,0 +1,38 @@
+.nav-wrapper {
+  border-bottom: 1px solid #ffffff0f;
+}
+
+.nav-container .nav-box .logo-box {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.nav-container .nav-box .logo-box h1 {
+  font-size: 50px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.nav-container .nav-box .logo-box img {
+  height: 32px;
+  margin-left: 8px;
+}
+
+#showMoreBtn {
+  color: var(--primary-color);
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+#showMoreBtn:active {
+  transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+}
