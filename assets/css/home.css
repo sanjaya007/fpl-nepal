@@ -1,8 +1,9 @@
-.filter-container .filter-box input {
+.filter-container .filter-box input,
+.filter-container .filter-box select {
   border: none;
   outline: none;
   padding: 14px;
-  width: 200px;
+  width: 220px;
   font-size: 16px;
   background-color: #212121;
   color: var(--primary-color);

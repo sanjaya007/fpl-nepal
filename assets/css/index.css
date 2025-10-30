@@ -63,6 +63,10 @@ input {
   font-family: "VT323", monospace;
   color: var(--secondary-color);
 }
+select {
+  font-family: "VT323", monospace;
+  /* color: var(--secondary-color --); */
+}
 
 table {
   width: 100%;
