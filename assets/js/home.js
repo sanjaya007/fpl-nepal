@@ -1,3 +1,4 @@
+const SMALL_LEAGUE_IDs = ["480834"];
 let currentLeagueId = "";
 let currentPage = 1;
 let hasNextPage = false;
@@ -115,16 +116,95 @@ function getStandings(id) {
   );
 }
 
+function getEventStandings(leagueId, eventId) {
+  $("#filterWrapper").addClass("fd-disabled");
+  $("#noDataBox").show().find("h4").text(`Loading...`);
+  $("#tableBody").empty();
+  $("#showMoreBox").addClass("fd-none");
+
+  const oldText = $("#tableTitle h1").text();
+  $("#tableTitle h1").text(`${oldText} (GW ${eventId})`);
+
+  getDataProxy(
+    BASE_URL + `leagues-classic/${leagueId}/standings/`,
+    function (response) {
+      const members = response.standings.results;
+      const totalPlayers = members.length;
+
+      let done = 0;
+      let eventData = [];
+
+      members.forEach((m) => {
+        getDataProxy(
+          BASE_URL + `entry/${m.entry}/history/`,
+          function (playerData) {
+            const gw = playerData.current.find((e) => e.event == eventId);
+            console.log(gw);
+            const gwPoints = gw ? gw.points : 0;
+
+            eventData.push({
+              player_name: m.player_name,
+              entry_name: m.entry_name,
+              entry: m.entry,
+              id: m.id,
+              points: gwPoints,
+            });
+
+            done++;
+            if (done === totalPlayers) {
+              $("#filterWrapper").removeClass("fd-disabled");
+              eventData.sort((a, b) => b.points - a.points);
+
+              $("#tableBody").empty();
+              $("#noDataBox").hide();
+
+              $.each(eventData, function (index, val) {
+                $("#tableBody").append(`
+                  <tr>
+                    <td>${index + 1}</td>
+                    <td title="${
+                      val.player_name
+                    } (${val.entry_name})" class="fpl-name-td" data-entry="${val.entry}">
+                      ${val.player_name}<br><span>${val.entry_name}</span>
+                    </td>
+                    <td>${val.points}</td>
+                    <td>–</td>
+                  </tr>
+                `);
+              });
+            }
+          },
+          function () {
+            done++;
+          }
+        );
+      });
+    },
+    function () {
+      $("#filterWrapper").removeClass("fd-disabled");
+      ALERT.init("error", "Failed to fetch league standings!");
+    }
+  );
+}
+
 $(document).ready(function () {
   getStandings(170);
   getCurrentGameweek(function (currentGW) {
     currentGameweek = currentGW.id;
   });
 
-  $("#searchLeagueInput").on("keypress", function (e) {
-    if (e.which === 13) {
-      const value = $(this).val().trim();
+  $("#searchLeagueInput").on("input", function (e) {
+    const value = $(this).val().trim();
 
+    if (value === "") {
+      $("#rightFilterBox").show();
+    } else {
+      $("#rightFilterBox").hide();
+      $("#leagueSelect").val("");
+      $("#eventSelect").val("");
+    }
+
+    if (e.which === 13) {
       if (!value) return;
 
       if (/^\d+$/.test(value)) {
@@ -136,12 +216,39 @@ $(document).ready(function () {
   });
 
   $("#leagueSelect").on("change", function () {
+    $("#eventSelect").val("");
+
     const selectedId = $(this).val();
 
+    $("#eventSelect").hide();
+
     if (selectedId && /^\d+$/.test(selectedId)) {
+      if (SMALL_LEAGUE_IDs.includes(selectedId)) {
+        $("#eventSelect").show();
+      }
+
       getStandings(selectedId);
     } else {
       ALERT.init("error", "Invalid League ID selected!");
+    }
+  });
+
+  $("#eventSelect").on("change", function () {
+    const selectedEvent = $(this).val();
+    const selectedLeague = $("#leagueSelect").val();
+
+    if (!selectedLeague) {
+      ALERT.init("error", "Please select a league first!");
+      return;
+    }
+
+    if (!SMALL_LEAGUE_IDs.includes(selectedLeague)) {
+      ALERT.init("error", "Event standings only available for small leagues.");
+      return;
+    }
+
+    if (selectedEvent && /^\d+$/.test(selectedEvent)) {
+      getEventStandings(selectedLeague, selectedEvent);
     }
   });
 
@@ -153,5 +260,18 @@ $(document).ready(function () {
       currentPage++;
       getStandings(currentLeagueId);
     }
+  });
+
+  $("#tableBody").on("click", ".fpl-name-td", function () {
+    const entryId = $(this).data("entry");
+
+    if (!entryId || !currentGameweek) {
+      ALERT.init("error", "Missing entry ID or current gameweek!");
+      return;
+    }
+
+    const url = `https://fantasy.premierleague.com/entry/${entryId}/event/${currentGameweek}`;
+
+    window.open(url, "_blank");
   });
 });

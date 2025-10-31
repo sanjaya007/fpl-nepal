@@ -8,3 +8,7 @@
   background-color: #212121;
   color: var(--primary-color);
 }
+
+.fpl-name-td {
+  cursor: pointer;
+}
