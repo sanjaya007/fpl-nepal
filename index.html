@@ -6,7 +6,7 @@
     <title>FPL Nepal</title>
 
     <!-- favicon  -->
-    <link rel="icon" type="image/x-icon" href="" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico" />
 
     <!-- sanjaya css -->
     <link
@@ -79,7 +79,10 @@
               id="searchLeagueInput"
             />
           </div>
-          <div class="right-box" id="rightFilterBox">
+          <div
+            class="right-box flex-css-row-start-wrap fg-10"
+            id="rightFilterBox"
+          >
             <select name="league" id="leagueSelect">
               <option value="" selected disabled>Select League</option>
               <option value="170">Nepal</option>
@@ -88,7 +91,7 @@
               <option value="480834">Bhairab Fantasy League S-XI</option>
             </select>
             <select name="event" class="fd-none" id="eventSelect">
-              <option value="" selected disabled>Select Event</option>
+              <option value="" selected disabled>Select Gameweek</option>
               <option value="1">Gameweek 1</option>
               <option value="2">Gameweek 2</option>
               <option value="3">Gameweek 3</option>
@@ -138,7 +141,10 @@
       <div class="table-container middle-content paddingX">
         <div class="table-box">
           <div class="table-title fpb-20" id="tableTitle">
-            <h1 class="fmb-6">League</h1>
+            <h1 class="fmb-6">
+              <span>League </span>
+              <span></span>
+            </h1>
             <p>Last Updated: <span></span></p>
           </div>
 
@@ -147,8 +153,8 @@
               <tr>
                 <th>Rank</th>
                 <th>Manager</th>
-                <th>GW</th>
-                <th>Total</th>
+                <th class="ftxt-right">GW</th>
+                <th class="ftxt-right">Total</th>
               </tr>
             </thead>
 
@@ -169,7 +175,20 @@
     <!-- footer -->
     <div class="footer-wrapper gapX">
       <div class="footer-container middle-content paddingX">
-        <div class="footer-box flex-css-row-sb fpy-30"></div>
+        <div class="footer-box flex-css-row fpy-30">
+          <p class="fmr-6">Designed By:</p>
+          <a
+            href="https://cdc-static.netlify.app/assets/images/customer1.png"
+            target="_blank"
+            class="flex-css-row"
+            >Shyrus
+            <img
+              src="https://biohazard7.netlify.app/assets/images/flag.gif"
+              class="fml-4"
+              alt="flag"
+            />
+          </a>
+        </div>
       </div>
     </div>
 

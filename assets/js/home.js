@@ -11,8 +11,8 @@ function tableRowHTML(value) {
                 ${value.player_name} <br> 
                 <span>${value.entry_name}</span>
             </td>
-            <td>${value.event_total}</td>
-            <td>${value.total}</td>
+            <td class="ftxt-right">${value.event_total}</td>
+            <td class="ftxt-right">${value.total}</td>
         </tr>`;
 }
 
@@ -62,7 +62,7 @@ function getStandings(id) {
   if (id != currentLeagueId) {
     currentPage = 1;
     $("#tableBody").empty();
-    $("#tableTitle h1").text("League");
+    $("#tableTitle h1 span").eq(0).text(`League`);
     $("#tableTitle p span").text("");
   }
 
@@ -74,7 +74,9 @@ function getStandings(id) {
       console.log(response);
       if (response) {
         currentLeagueId = response?.league?.id || "";
-        $("#tableTitle h1").text(response?.league?.name || "League");
+        $("#tableTitle h1 span")
+          .eq(0)
+          .text(response?.league?.name || "League");
         $("#tableTitle p span").text(
           formatNepalTime(response?.last_updated_data)
         );
@@ -122,8 +124,7 @@ function getEventStandings(leagueId, eventId) {
   $("#tableBody").empty();
   $("#showMoreBox").addClass("fd-none");
 
-  const oldText = $("#tableTitle h1").text();
-  $("#tableTitle h1").text(`${oldText} (GW ${eventId})`);
+  $("#tableTitle h1 span").eq(1).text(`(GW ${eventId})`);
 
   getDataProxy(
     BASE_URL + `leagues-classic/${leagueId}/standings/`,
@@ -139,7 +140,6 @@ function getEventStandings(leagueId, eventId) {
           BASE_URL + `entry/${m.entry}/history/`,
           function (playerData) {
             const gw = playerData.current.find((e) => e.event == eventId);
-            console.log(gw);
             const gwPoints = gw ? gw.points : 0;
 
             eventData.push({
@@ -167,8 +167,8 @@ function getEventStandings(leagueId, eventId) {
                     } (${val.entry_name})" class="fpl-name-td" data-entry="${val.entry}">
                       ${val.player_name}<br><span>${val.entry_name}</span>
                     </td>
-                    <td>${val.points}</td>
-                    <td>–</td>
+                    <td class="ftxt-right">${val.points}</td>
+                    <td class="ftxt-right">–</td>
                   </tr>
                 `);
               });
@@ -193,7 +193,7 @@ $(document).ready(function () {
     currentGameweek = currentGW.id;
   });
 
-  $("#searchLeagueInput").on("input", function (e) {
+  $("#searchLeagueInput").on("input", function () {
     const value = $(this).val().trim();
 
     if (value === "") {
@@ -203,8 +203,13 @@ $(document).ready(function () {
       $("#leagueSelect").val("");
       $("#eventSelect").val("");
     }
+  });
 
+  $("#searchLeagueInput").on("keypress", function (e) {
     if (e.which === 13) {
+      e.preventDefault();
+
+      const value = $(this).val().trim();
       if (!value) return;
 
       if (/^\d+$/.test(value)) {

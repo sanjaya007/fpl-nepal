@@ -12,3 +12,11 @@
 .fpl-name-td {
   cursor: pointer;
 }
+
+@media (max-width: 767px) {
+  .filter-container .filter-box {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+  }
+}

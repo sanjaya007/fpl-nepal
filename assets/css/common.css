@@ -36,3 +36,25 @@
   -ms-transform: scale(0.9);
   -o-transform: scale(0.9);
 }
+
+.table-wrapper {
+  min-height: 500px;
+}
+
+.footer-wrapper {
+  border-top: 1px solid #ffffff0f;
+}
+
+.footer-container .footer-box {
+  font-size: 18px;
+}
+
+.footer-container .footer-box a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-family: "Grenze Gotisch", cursive;
+}
+
+.footer-container .footer-box img {
+  height: 20px;
+}
