@@ -58,6 +58,7 @@ function getCurrentGameweek(callback) {
 
 function getStandings(id) {
   $("#filterWrapper").addClass("fd-disabled");
+  $("#tableTitle h1 span").eq(0).text("");
 
   if (id != currentLeagueId) {
     currentPage = 1;
