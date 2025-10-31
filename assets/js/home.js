@@ -33,7 +33,7 @@ function getCurrentGameweek(callback) {
 
   console.log("🌐 Fetching new data from API...");
 
-  getDataProxy(
+  getData(
     BASE_URL + "bootstrap-static/",
     function (response) {
       if (response) {
@@ -68,7 +68,7 @@ function getStandings(id) {
 
   $("#noDataBox").show().find("h4").text("Loading...");
 
-  getDataProxy(
+  getData(
     BASE_URL + `leagues-classic/${id}/standings/?page_standings=${currentPage}`,
     function (response) {
       console.log(response);
@@ -126,7 +126,7 @@ function getEventStandings(leagueId, eventId) {
 
   $("#tableTitle h1 span").eq(1).text(`(GW ${eventId})`);
 
-  getDataProxy(
+  getData(
     BASE_URL + `leagues-classic/${leagueId}/standings/`,
     function (response) {
       const members = response.standings.results;
@@ -136,7 +136,7 @@ function getEventStandings(leagueId, eventId) {
       let eventData = [];
 
       members.forEach((m) => {
-        getDataProxy(
+        getData(
           BASE_URL + `entry/${m.entry}/history/`,
           function (playerData) {
             const gw = playerData.current.find((e) => e.event == eventId);
